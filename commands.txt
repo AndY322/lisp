@@ -1,0 +1,3 @@
+(command "move" primitive_name "" start_point range)
+(command "scale" primitive_name "" start_point "2")
+(command "rotate" primitive_name "" start_point "90")
