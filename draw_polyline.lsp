@@ -11,31 +11,41 @@
 )
 
 (defun draw()
-	(setq p1 (strcat (rtos (car pt) 2 3) "," (rtos (cadr pt) 2 3)))
-	(setq p2 (strcat (rtos (nth 0 cr) 2 3) "," (rtos (nth 1 cr) 2 3)))
-	(setq p3 (strcat (rtos (nth 2 cr) 2 3) "," (rtos (nth 3 cr) 2 3)))
-	(setq p4 (strcat (rtos (nth 4 cr) 2 3) "," (rtos (nth 5 cr) 2 3)))
-	(setq p5 (strcat (rtos (nth 6 cr) 2 3) "," (rtos (nth 7 cr) 2 3)))
+	(setq p (strcat specify_x "," specify_y))
+	(setq cr (cons p cr))
 	(if (= close1 "1") (setq varclose "close") (setq varclose ""))
 	(if (= sm "1") (setq sm "spline") (setq sm ""))
 	(command "lweight" line_width)
-	(command "pline"  p1 p2 p3 p4 p5 varclose)
+	(command "pline")
+	(foreach a cr
+		(command a)
+	)
+	(command varclose)
 	(setq lastvar (entlast))
 	(command "pedit" lastvar sm "")
-	
+	(setq w_n 0)
+)
+
+(defun test()
+	(command "pline")
+	(foreach a cr
+		(command a)
+	)
 )
 
 (defun readfile()
 
   (setq coordinates (open "d:\\LISP\\coordinates.txt" "r"))
   (setq coordinate (list))
-  (repeat 8
+	(setq i (read-line coordinates))
+	(setq i (atoi i))
+  (repeat i
 	(setq rf (read-line coordinates))
-	(setq coordinate (cons (atof rf) coordinate))
+	(setq coordinate (cons rf coordinate))
   )
-  
-  (setq cr (reverse coordinate))
-)
+    (setq cr (reverse coordinate))
+  )
+
 
 (defun main_dialog()
   (if (not (new_dialog "draw_polyline" dcl_id)) (exit))

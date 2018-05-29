@@ -1,3 +1,4 @@
 (command "move" primitive_name "" start_point range)
 (command "scale" primitive_name "" start_point "2")
 (command "rotate" primitive_name "" start_point "90")
+(setq a "10,10 20,10 arc angle -180 radius 10 30,10 line 40,10 50,10")
